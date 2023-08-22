@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/COptionComponent.h"
 #include "CPlayer.generated.h"
 
 UCLASS()
@@ -25,6 +26,11 @@ private:	// Axis Event
 	void OnMoveRight(float InAxis);
 	void OnHorizontalLook(float InAxis);
 	void OnVerticalLook(float InAxis);
+	void OnZoom(float InAxis);
+
+private:	// Action Event
+	void OnWalk();
+	void OffWalk();
 
 private:	// Scene Component
 	UPROPERTY(VisibleDefaultsOnly)
@@ -36,4 +42,13 @@ private:	// Scene Component
 private:	// Actor Component
 	UPROPERTY(VisibleDefaultsOnly)
 		class UCStatusComponent* Status;
+
+	UPROPERTY(VisibleDefaultsOnly)
+		class UCOptionComponent* Option;
+
+	UPROPERTY(VisibleDefaultsOnly)
+		class UCStateComponent* State;
+
+	UPROPERTY(VisibleDefaultsOnly)
+		class UCMontagesComponent* Montages;
 };
