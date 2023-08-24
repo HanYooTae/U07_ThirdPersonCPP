@@ -34,6 +34,10 @@ private:	// Action Event
 	void OffWalk();
 
 	void OnEvade();
+	void OnFist();
+	void OnOneHand();
+	void OnTwoHand();
+	void OnMagicBall();
 
 private:
 	void Begin_Roll();
@@ -66,4 +70,7 @@ private:	// Actor Component
 
 	UPROPERTY(VisibleDefaultsOnly)
 		class UCMontagesComponent* Montages;
+
+	UPROPERTY(VisibleDefaultsOnly)
+		class UCActionComponent* Action;
 };
