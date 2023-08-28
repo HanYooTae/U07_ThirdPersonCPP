@@ -26,7 +26,7 @@ void UCActionComponent::BeginPlay()
 void UCActionComponent::SetUnarmedMode()
 {
 	if(!!Datas[(int32)Type] && !!Datas[(int32)Type]->GetEquipment())
-		Datas[(int32)Type]->GetEquipment()->UnEquip();
+		Datas[(int32)Type]->GetEquipment()->Unequip();
 
 	Datas[(int32)EActionType::Unarmed]->GetEquipment()->Equip();
 
@@ -73,8 +73,17 @@ void UCActionComponent::SetMode(EActionType InNewType)
 		return;
 	}
 
-	// 다른 무기 교체
+	// Unarmed가 아닌 Type을 장학하고 있었다면
+	else if (IsUnarmedMode() == false)
+	{
+		if (!!Datas[(int32)Type] && !!Datas[(int32)Type]->GetEquipment())
+			Datas[(int32)Type]->GetEquipment()->Unequip();
+	}
 
+	if(!!Datas[(int32)InNewType] && Datas[(int32)InNewType]->GetEquipment())
+		Datas[(int32)InNewType]->GetEquipment()->Equip();
+
+	// 다른 무기 교체
 	ChangeType(InNewType);
 }
 

@@ -39,8 +39,8 @@ public:
 	void End_Equip_Implementation();
 
 	UFUNCTION(BlueprintNativeEvent)
-		void UnEquip();
-	void UnEquip_Implementation();
+		void Unequip();
+	void Unequip_Implementation();
 
 public:
 	UPROPERTY(BlueprintAssignable)

@@ -4,10 +4,11 @@
 #include "GameFramework/Character.h"
 #include "Components/COptionComponent.h"
 #include "Components/CStateComponent.h"
+#include "ICharacter.h"
 #include "CPlayer.generated.h"
 
 UCLASS()
-class U07_THIRDPERSONCPP_API ACPlayer : public ACharacter
+class U07_THIRDPERSONCPP_API ACPlayer : public ACharacter, public IICharacter
 {
 	GENERATED_BODY()
 
@@ -21,6 +22,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+public:
+	virtual void ChangeBodyColor(FLinearColor InColor);
 
 private:	// Axis Event
 	void OnMoveForward(float InAxis);
@@ -73,4 +77,7 @@ private:	// Actor Component
 
 	UPROPERTY(VisibleDefaultsOnly)
 		class UCActionComponent* Action;
+
+private:
+	class UMaterialInstanceDynamic* BodyMaterial;
 };
