@@ -29,7 +29,7 @@ void ACEquipment::Equip_Implementation()
 	// Play Draw AnimMontage
 	if (!!Data.AnimMontage)
 	{
-		CLog::Print(Data.AnimMontage->GetName());
+		//CLog::Print(Data.AnimMontage->GetName());
 		OwnerCharacter->PlayAnimMontage(Data.AnimMontage, Data.PlayRate, Data.StartSection);
 	}
 	else
@@ -70,4 +70,7 @@ void ACEquipment::Unequip_Implementation()
 {
 	OwnerCharacter->bUseControllerRotationYaw = false;
 	OwnerCharacter->GetCharacterMovement()->bOrientRotationToMovement = true;
+
+	if (OnUnequip.IsBound())
+		OnUnequip.Broadcast();
 }
