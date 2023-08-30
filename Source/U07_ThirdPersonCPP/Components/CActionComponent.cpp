@@ -2,6 +2,7 @@
 #include "Global.h"
 #include "Actions/CActionData.h"
 #include "Actions/CEquipment.h"
+#include "Actions/CDoAction.h"
 #include "GameFramework/Character.h"
 
 UCActionComponent::UCActionComponent()
@@ -61,6 +62,21 @@ void UCActionComponent::SetWarpMode()
 void UCActionComponent::SetStormMode()
 {
 	SetMode(EActionType::Storm);
+}
+
+void UCActionComponent::DoAction()
+{
+	CheckTrue(IsUnarmedMode());
+
+	if (!!GetCurrentData())
+	{
+		ACDoAction* doAction = GetCurrentData()->GetDoAction();
+		if (!!doAction)
+		{
+			doAction->DoAction();
+		}
+			
+	}
 }
 
 void UCActionComponent::SetMode(EActionType InNewType)

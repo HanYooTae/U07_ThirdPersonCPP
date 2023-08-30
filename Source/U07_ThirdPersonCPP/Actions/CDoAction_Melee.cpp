@@ -9,7 +9,14 @@ void ACDoAction_Melee::DoAction()
 	Super::DoAction();
 
 	// 액션(공격) 몽타주 재생
+	CheckFalse(Datas.Num() > 0);
+	CheckFalse(StateComp->IsIdleMode());
+
+	StateComp->SetActionMode();
+
+	// First Attack
 	OwnerCharacter->PlayAnimMontage(Datas[0].AnimMontage, Datas[0].PlayRate, Datas[0].StartSection);
+	Datas[0].bCanMove ? StatusComp->SetMove() : StatusComp->SetStop();
 }
 
 void ACDoAction_Melee::Begin_DoAction()
@@ -24,4 +31,6 @@ void ACDoAction_Melee::End_DoAction()
 	Super::End_DoAction();
 
 	// 노티파이 엔드(아이들 상태, 캔부므 풀어주는 등)
+	StateComp->SetIdleMode();
+	StatusComp->SetMove();
 }

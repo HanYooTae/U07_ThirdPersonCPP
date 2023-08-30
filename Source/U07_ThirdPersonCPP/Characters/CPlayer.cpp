@@ -88,6 +88,8 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("OneHand", EInputEvent::IE_Pressed, this, &ACPlayer::OnOneHand);
 	PlayerInputComponent->BindAction("TwoHand", EInputEvent::IE_Pressed, this, &ACPlayer::OnTwoHand);
 	PlayerInputComponent->BindAction("MagicBall", EInputEvent::IE_Pressed, this, &ACPlayer::OnMagicBall);
+
+	PlayerInputComponent->BindAction("Action", EInputEvent::IE_Pressed, this, &ACPlayer::OnAction);
 }
 
 void ACPlayer::OnMoveForward(float InAxis)
@@ -182,6 +184,11 @@ void ACPlayer::OnMagicBall()
 	CheckFalse(State->IsIdleMode());
 
 	Action->SetMagicBallMode();
+}
+
+void ACPlayer::OnAction()
+{
+	Action->DoAction();
 }
 
 void ACPlayer::Begin_Roll()
