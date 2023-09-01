@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "ICharacter.h"
+#include "Components/CStateComponent.h"
 #include "CEnemy.generated.h"
 
 UCLASS()
@@ -17,7 +18,18 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
+public:
 	virtual void ChangeBodyColor(FLinearColor InColor);
+
+private:
+	void Hitted();
+	void Dead();
+
+private:
+	UFUNCTION()
+		void OnStateTypeChanged(EStateType InPrevType, EStateType InNewType);
 
 private:		// Scene Component
 	UPROPERTY(VisibleDefaultsOnly)
@@ -43,4 +55,8 @@ private:		// Actor Component
 private:
 	class UMaterialInstanceDynamic* UpperMaterial;		// 상반신
 	class UMaterialInstanceDynamic* LowerMaterial;		// 하반신
+
+	class ACharacter* Attacker;
+	class AActor* Causer;
+	float DamageValue;
 };
