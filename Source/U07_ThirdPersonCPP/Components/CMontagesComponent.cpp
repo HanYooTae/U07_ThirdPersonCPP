@@ -50,12 +50,21 @@ void UCMontagesComponent::PlayBackStep()
 	PlayAnimMontage(EStateType::BackStep);
 }
 
+void UCMontagesComponent::PlayHitted()
+{
+	PlayAnimMontage(EStateType::Hitted);
+}
+
 void UCMontagesComponent::PlayAnimMontage(EStateType InStateType)
 {
+
+	//CLog::Print(FString::FromInt((int32)InStateType));
 	ACharacter* ownerCharacter = Cast<ACharacter>(GetOwner());
 	CheckNull(ownerCharacter);
 
+
 	const FMontageData* data = Datas[(int32)InStateType];
+	//CLog::Log(!!data ? "NotNull" : "Null");
 
 	if(!!data && !!data->AnimMontage)
 		ownerCharacter->PlayAnimMontage(data->AnimMontage, data->PlayRate, data->StartSection);
