@@ -22,7 +22,7 @@ void UCAnimNotifyState_Collision::NotifyBegin(USkeletalMeshComponent* MeshComp, 
 	UCActionComponent* actionComp = CHelpers::GetComponent<UCActionComponent>(MeshComp->GetOwner());
 	CheckNull(actionComp);
 
-	UCActionData* currentData = actionComp->GetCurrentData();
+	UCActionData_Spawned* currentData = actionComp->GetCurrentData();
 	CheckNull(currentData);
 
 	ACAttachment* attachment = currentData->GetAttachment();
@@ -42,7 +42,7 @@ void UCAnimNotifyState_Collision::NotifyEnd(USkeletalMeshComponent* MeshComp, UA
 	UCActionComponent* actionComp = CHelpers::GetComponent<UCActionComponent>(MeshComp->GetOwner());
 	CheckNull(actionComp);
 
-	UCActionData* currentData = actionComp->GetCurrentData();
+	UCActionData_Spawned* currentData = actionComp->GetCurrentData();
 	CheckNull(currentData);
 
 	ACAttachment* attachment = currentData->GetAttachment();

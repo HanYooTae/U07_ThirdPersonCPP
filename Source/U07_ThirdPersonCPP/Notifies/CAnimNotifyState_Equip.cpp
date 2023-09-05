@@ -21,7 +21,7 @@ void UCAnimNotifyState_Equip::NotifyBegin(USkeletalMeshComponent* MeshComp, UAni
 	UCActionComponent* actionComp = CHelpers::GetComponent<UCActionComponent>(MeshComp->GetOwner());
 	CheckNull(actionComp);
 
-	UCActionData* currentData = actionComp->GetCurrentData();
+	UCActionData_Spawned* currentData = actionComp->GetCurrentData();
 	CheckNull(currentData);
 
 	ACEquipment* equipment = currentData->GetEquipment();
@@ -41,7 +41,7 @@ void UCAnimNotifyState_Equip::NotifyEnd(USkeletalMeshComponent* MeshComp, UAnimS
 	UCActionComponent* actionComp = CHelpers::GetComponent<UCActionComponent>(MeshComp->GetOwner());
 	CheckNull(actionComp);
 
-	UCActionData* currentData = actionComp->GetCurrentData();
+	UCActionData_Spawned* currentData = actionComp->GetCurrentData();
 	CheckNull(currentData);
 
 	ACEquipment* equipment = currentData->GetEquipment();
