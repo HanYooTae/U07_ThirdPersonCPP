@@ -167,6 +167,9 @@ void ACEnemy::Dead()
 	FVector force = direction * LaunchValue * DamageValue;
 	GetMesh()->AddForceAtLocation(force, start);
 
+	// Off All Collisions
+	Action->OffAllCollisions();
+
 	// Destroy All(Attachment, Equipment, DoAction...);
 
 }

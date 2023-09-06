@@ -3,6 +3,7 @@
 #include "Actions/CActionData.h"
 #include "Actions/CActionData_Spawned.h"
 #include "Actions/CEquipment.h"
+#include "Actions/CAttachment.h"
 #include "Actions/CDoAction.h"
 #include "GameFramework/Character.h"
 
@@ -77,6 +78,20 @@ void UCActionComponent::DoAction()
 			doAction->DoAction();
 		}
 			
+	}
+}
+
+void UCActionComponent::OffAllCollisions()
+{
+	for (const auto& data : Datas)
+	{
+		if (data == nullptr)
+			continue;
+
+		if (data->GetAttachment() == nullptr)
+			continue;
+
+		data->GetAttachment()->OffCollisions();
 	}
 }
 

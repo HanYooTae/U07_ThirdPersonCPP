@@ -24,7 +24,6 @@ public:
 
 	// 몽타주 재생
 	virtual void DoAction() {};
-
 	virtual void Begin_DoAction() {};
 	virtual void End_DoAction() {};
 

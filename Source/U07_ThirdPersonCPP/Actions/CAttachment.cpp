@@ -36,6 +36,16 @@ void ACAttachment::AttachTo(FName InSocketName)
 	);
 }
 
+void ACAttachment::AttachToComp(class USceneComponent* InComponent, FName InSocketName)
+{
+	InComponent->AttachToComponent
+	(
+		OwnerCharacter->GetMesh(),
+		FAttachmentTransformRules(EAttachmentRule::KeepRelative, true),
+		InSocketName
+	);
+}
+
 void ACAttachment::OnCollisions()
 {
 	for (const auto& collision : Collisions)

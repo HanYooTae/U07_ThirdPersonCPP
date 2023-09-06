@@ -63,6 +63,8 @@ public:		// Set Action
 public:
 	void DoAction();
 
+	void OffAllCollisions();
+
 private:
 	void SetMode(EActionType InNewType);
 	void ChangeType(EActionType InNewType);
