@@ -44,6 +44,8 @@ private:	// Action Event
 	void OnMagicBall();
 
 	void OnAction();
+	void OnAim();
+	void OffAim();
 
 private:
 	void Begin_Roll();

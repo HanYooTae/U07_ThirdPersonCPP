@@ -27,6 +27,9 @@ public:
 	virtual void Begin_DoAction() {};
 	virtual void End_DoAction() {};
 
+	virtual void OnAim() {};
+	virtual void OffAim() {};
+
 public:
 	UFUNCTION()
 		virtual void OnBeginOverlap(class ACharacter* InAttacker, class AActor* InCauser, class ACharacter* InOtherCharacter) {};

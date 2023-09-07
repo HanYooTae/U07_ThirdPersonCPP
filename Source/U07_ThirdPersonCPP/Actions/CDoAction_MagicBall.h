@@ -19,4 +19,11 @@ public:
 	virtual void DoAction() override;
 	virtual void Begin_DoAction() override;
 	virtual void End_DoAction() override;
+
+	virtual void OnAim() override;
+	virtual void OffAim() override;
+
+private:
+	UPROPERTY()
+		class UCAim* Aim;
 };
