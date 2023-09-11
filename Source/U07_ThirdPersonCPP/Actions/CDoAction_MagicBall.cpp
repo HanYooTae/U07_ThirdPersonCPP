@@ -12,6 +12,9 @@ void ACDoAction_MagicBall::BeginPlay()
 
 	Aim = NewObject<UCAim>();
 	Aim->BeginPlay(OwnerCharacter);
+
+	ActionComp = CHelpers::GetComponent<UCActionComponent>(OwnerCharacter);
+	ActionComp->OnActionTypeChanged.AddDynamic(this, &ACDoAction_MagicBall::AbortByTypeChanged);
 }
 
 void ACDoAction_MagicBall::Tick(float DeltaTime)
@@ -43,12 +46,18 @@ void ACDoAction_MagicBall::Begin_DoAction()
 	// Spawn Projectile
 	CheckNull(Datas[0].ProjectileClass);
 
+	FVector location;
+	FRotator rotation;
 	FVector handSocketLocation = OwnerCharacter->GetMesh()->GetSocketLocation("hand_r");
-	//OwnerCharacter->GetController()->GetPlayerViewPoint(,);
+	FVector cameraDirection = rotation.Vector();
+
+	location += cameraDirection * ((handSocketLocation - location) | cameraDirection);
+
+	OwnerCharacter->GetController()->GetPlayerViewPoint(location, rotation);
 
 	FTransform transform = Datas[0].EffectTransform;
 
-	transform.AddToTranslation(handSocketLocation);
+	transform.AddToTranslation(location);
 	transform.SetRotation(FQuat(OwnerCharacter->GetControlRotation()));
 
 	ACMagicBall* magicBall = GetWorld()->SpawnActorDeferred<ACMagicBall>
@@ -59,6 +68,8 @@ void ACDoAction_MagicBall::Begin_DoAction()
 			OwnerCharacter,
 			ESpawnActorCollisionHandlingMethod::AlwaysSpawn
 		);
+
+	magicBall->OnBeginOverlap.AddDynamic(this, &ACDoAction_MagicBall::OnMagicBeginOverlap);
 
 	magicBall->FinishSpawning(transform);
 }
@@ -78,5 +89,26 @@ void ACDoAction_MagicBall::OnAim()
 void ACDoAction_MagicBall::OffAim()
 {
 	CheckNull(Aim);
+	Aim->Off();
+}
+
+void ACDoAction_MagicBall::OnMagicBeginOverlap(FHitResult hitResult)
+{
+	FDamageEvent damageEvent;
+	hitResult.Actor->TakeDamage
+	(
+		Datas[0].Power,
+		damageEvent,
+		OwnerCharacter->GetController(),
+		this
+	);
+}
+
+void ACDoAction_MagicBall::AbortByTypeChanged(EActionType InPrevType, EActionType InNewType)
+{
+	// 매직볼모드라면 에임off
+	CheckFalse(Aim->IsAvailable());
+	CheckFalse(Aim->IsZooming());
+	
 	Aim->Off();
 }

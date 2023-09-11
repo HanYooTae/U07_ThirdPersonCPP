@@ -4,6 +4,8 @@
 #include "GameFramework/Actor.h"
 #include "CMagicBall.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMagicBallBeginOverlapSignature, FHitResult, InHitResult);
+
 UCLASS()
 class U07_THIRDPERSONCPP_API ACMagicBall : public AActor
 {
@@ -14,6 +16,10 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+public:
+	UFUNCTION()
+		void OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
@@ -33,4 +39,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Impact")
 		FTransform ImpactTransform;
+
+public:
+	UPROPERTY(BlueprintAssignable)
+		FMagicBallBeginOverlapSignature OnBeginOverlap;
 };
