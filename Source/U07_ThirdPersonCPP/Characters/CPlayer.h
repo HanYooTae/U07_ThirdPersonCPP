@@ -32,6 +32,8 @@ private:	// Axis Event
 	void OnHorizontalLook(float InAxis);
 	void OnVerticalLook(float InAxis);
 	void OnZoom(float InAxis);
+	void OnWarp();
+	void OnStorm();
 
 private:	// Action Event
 	void OnWalk();

@@ -88,6 +88,8 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("OneHand", EInputEvent::IE_Pressed, this, &ACPlayer::OnOneHand);
 	PlayerInputComponent->BindAction("TwoHand", EInputEvent::IE_Pressed, this, &ACPlayer::OnTwoHand);
 	PlayerInputComponent->BindAction("MagicBall", EInputEvent::IE_Pressed, this, &ACPlayer::OnMagicBall);
+	PlayerInputComponent->BindAction("Warp", EInputEvent::IE_Pressed, this, &ACPlayer::OnWarp);
+	PlayerInputComponent->BindAction("Storm", EInputEvent::IE_Pressed, this, &ACPlayer::OnStorm);
 
 	PlayerInputComponent->BindAction("Action", EInputEvent::IE_Pressed, this, &ACPlayer::OnAction);
 
@@ -136,6 +138,21 @@ void ACPlayer::OnZoom(float InAxis)
 	SpringArm->TargetArmLength += rate;
 
 	SpringArm->TargetArmLength = FMath::Clamp(SpringArm->TargetArmLength, Option->GetZoomMin(), Option->GetZoomMax());
+}
+
+void ACPlayer::OnWarp()
+{
+	CheckFalse(State->IsIdleMode());
+
+	Action->SetWarpMode();
+}
+
+void ACPlayer::OnStorm()
+{
+	CheckFalse(State->IsIdleMode());
+
+	CLog::Print("Storm");
+	//Action->SetStormMode();
 }
 
 void ACPlayer::OnWalk()
