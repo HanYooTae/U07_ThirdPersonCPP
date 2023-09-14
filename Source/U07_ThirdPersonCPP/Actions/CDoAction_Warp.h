@@ -13,7 +13,17 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	virtual void Tick(float DeltaTime) override;
+
+public:
 	virtual void DoAction() override;		// Play Warp Montage
 	virtual void Begin_DoAction() override;	// Play Particle
 	virtual void End_DoAction() override;	// Jump to Cursor Location
+
+private:
+	bool GetCursorLocationAndRotation(FVector& OutLocation, FRotator OutRotator);
+
+private:
+	UStaticMeshComponent* WarpPoint;
+	FVector WarpLocation;
 };

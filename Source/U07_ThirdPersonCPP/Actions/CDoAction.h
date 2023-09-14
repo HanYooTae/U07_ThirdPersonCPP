@@ -20,7 +20,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 public:
-	void SetDatas(TArray<FDoActionData> InDatas) { Datas = InDatas; }
+	FORCEINLINE void SetDatas(TArray<FDoActionData> InDatas) { Datas = InDatas; }
+	FORCEINLINE void SetEquippedThis(const bool* InEquippedThis) { bEquippedThis = InEquippedThis; }
 
 	// 몽타주 재생
 	virtual void DoAction() {};
@@ -49,4 +50,5 @@ protected:
 
 protected:
 	TArray<FDoActionData> Datas;
+	const bool* bEquippedThis;
 };
