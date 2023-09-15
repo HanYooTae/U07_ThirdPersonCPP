@@ -112,6 +112,9 @@ void ACEnemy::ChangeBodyColor(FLinearColor InColor)
 
 		return;
 	}
+
+	LowerMaterial->SetVectorParameterValue("Emissive", InColor);
+	UpperMaterial->SetVectorParameterValue("Emissive", InColor);
 }
 
 void ACEnemy::RestoreColor()

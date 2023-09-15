@@ -31,7 +31,7 @@ void ACDoAction_Warp::Tick(float DeltaTime)
 	if (GetCursorLocationAndRotation(location, rotation))
 	{
 		WarpPoint->SetVisibility(true);
-		WarpPoint->SetWorldLocationAndRotation(location + FVector(0, 0, 120), FQuat((-1) * rotation));
+		WarpPoint->SetWorldLocationAndRotation(location + WarpPoint->GetUpVector() * 120.f, FQuat(rotation));
 	}
 	else
 	{
@@ -80,7 +80,7 @@ void ACDoAction_Warp::End_DoAction()
 	StatusComp->SetMove();
 }
 
-bool ACDoAction_Warp::GetCursorLocationAndRotation(FVector& OutLocation, FRotator OutRotator)
+bool ACDoAction_Warp::GetCursorLocationAndRotation(FVector& OutLocation, FRotator& OutRotator)
 {
 	APlayerController* controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	CheckNullResult(controller, false);
@@ -98,7 +98,13 @@ bool ACDoAction_Warp::GetCursorLocationAndRotation(FVector& OutLocation, FRotato
 	))
 	{
 		OutLocation = hitResult.Location;
-		OutRotator = hitResult.ImpactNormal.Rotation();
+		//OutRotator = hitResult.ImpactNormal.Rotation();
+
+		FVector normal = hitResult.ImpactNormal;
+		float pitch = -UKismetMathLibrary::DegAtan2(normal.X, normal.Z);
+		float roll = UKismetMathLibrary::DegAtan2(normal.Y, normal.Z);
+
+		OutRotator = FRotator(pitch, 0, roll);
 
 		return true;
 	}

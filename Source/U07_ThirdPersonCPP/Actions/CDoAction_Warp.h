@@ -21,7 +21,7 @@ public:
 	virtual void End_DoAction() override;	// Jump to Cursor Location
 
 private:
-	bool GetCursorLocationAndRotation(FVector& OutLocation, FRotator OutRotator);
+	bool GetCursorLocationAndRotation(FVector& OutLocation, FRotator& OutRotator);
 
 private:
 	UStaticMeshComponent* WarpPoint;
