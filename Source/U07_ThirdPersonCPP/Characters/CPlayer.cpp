@@ -56,6 +56,8 @@ void ACPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	//SetGenericTeamId(PlayerTeamID);
+
 	BodyMaterial = UMaterialInstanceDynamic::Create(GetMesh()->GetMaterial(0), nullptr);
 	GetMesh()->SetMaterial(0, BodyMaterial);
 
@@ -281,4 +283,16 @@ void ACPlayer::ChangeBodyColor(FLinearColor InColor)
 {
 	BodyMaterial->SetVectorParameterValue("BodyColor", InColor);
 }
+
+FGenericTeamId ACPlayer::GetGenericTeamId() const
+{
+	return FGenericTeamId(PlayerTeamID);
+}
+
+//void ACPlayer::SetGenericTeamId(const FGenericTeamId& TeamID)
+//{
+//	TeamGenericID = TeamID;
+//	CLog::Print(TeamID);
+//	CLog::Print(TeamGenericID);
+//}
 

@@ -5,10 +5,11 @@
 #include "Components/COptionComponent.h"
 #include "Components/CStateComponent.h"
 #include "ICharacter.h"
+#include "GenericTeamAgentInterface.h"
 #include "CPlayer.generated.h"
 
 UCLASS()
-class U07_THIRDPERSONCPP_API ACPlayer : public ACharacter, public IICharacter
+class U07_THIRDPERSONCPP_API ACPlayer : public ACharacter, public IICharacter, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -25,6 +26,8 @@ public:
 
 public:
 	virtual void ChangeBodyColor(FLinearColor InColor);
+	//virtual void SetGenericTeamId(const FGenericTeamId& TeamID) override;
+	virtual FGenericTeamId GetGenericTeamId() const override;
 
 private:	// Axis Event
 	void OnMoveForward(float InAxis);
@@ -85,5 +88,11 @@ private:	// Actor Component
 		class UCActionComponent* Action;
 
 private:
+	UPROPERTY(EditDefaultsOnly)
+		uint8 PlayerTeamID = 0;
+
+private:
 	class UMaterialInstanceDynamic* BodyMaterial;
+
+	FGenericTeamId TeamGenericID;
 };

@@ -12,7 +12,13 @@ class U07_THIRDPERSONCPP_API ACEnemy_AI : public ACEnemy
 public:
 	FORCEINLINE class UBehaviorTree* GetBehaviorTree() { return BehaviorTree; }
 
+public:
+	FORCEINLINE uint8 GetTeamID() { return TeamID; }
+
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "AI")
 		class UBehaviorTree* BehaviorTree;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Team")
+		uint8 TeamID = 1;
 };
