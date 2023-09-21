@@ -63,6 +63,11 @@ void ACAIController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+float ACAIController::GetSightRadius()
+{
+	return Sight->SightRadius;
+}
+
 void ACAIController::OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors)
 {
 	TArray<AActor*> actors;

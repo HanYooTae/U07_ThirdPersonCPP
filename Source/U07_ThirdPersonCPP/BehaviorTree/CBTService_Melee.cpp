@@ -48,6 +48,17 @@ void UCBTService_Melee::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 	// Player exist
 	float distance = enemy->GetDistanceTo(player);
 
-	behaviorComp->SetApproachMode();
-	behaviorComp->SetActionMode();
+	//-> Is in Attack Range(150)
+	if (distance < controller->GetBehaviorRange())
+	{
+		behaviorComp->SetActionMode();
+		return;
+	}
+
+	//-> Is in Sight Range(600)
+	if (distance < controller->GetSightRadius())
+	{
+		behaviorComp->SetApproachMode();
+		return;
+	}
 }

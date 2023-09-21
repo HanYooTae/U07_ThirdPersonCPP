@@ -159,12 +159,14 @@ void ACPlayer::OnStorm()
 
 void ACPlayer::OnWalk()
 {
-	GetCharacterMovement()->MaxWalkSpeed = Status->GetWalkSpeed();
+	//GetCharacterMovement()->MaxWalkSpeed = Status->GetWalkSpeed();
+	Status->ChangeMoveSpeed(EWalkSpeedType::Walk);
 }
 
 void ACPlayer::OffWalk()
 {
-	GetCharacterMovement()->MaxWalkSpeed = Status->GetRunSpeed();
+	//GetCharacterMovement()->MaxWalkSpeed = Status->GetRunSpeed();
+	Status->ChangeMoveSpeed(EWalkSpeedType::Run);
 }
 
 void ACPlayer::OnEvade()
