@@ -11,9 +11,14 @@ class U07_THIRDPERSONCPP_API ACPatrolPath : public AActor
 	
 public:	
 	ACPatrolPath();
+	
+	virtual void OnConstruction(const FTransform& Transform) override;
 
 protected:
 	virtual void BeginPlay() override;
+
+public:
+	FORCEINLINE class USplineComponent* GetSpline() { return Spline; }
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
@@ -24,4 +29,8 @@ private:
 
 	UPROPERTY(VisibleDefaultsOnly)
 		class UTextRenderComponent* Text;
+
+private:
+	UPROPERTY(EditInstanceOnly)
+		bool bClosedLoop;
 };
