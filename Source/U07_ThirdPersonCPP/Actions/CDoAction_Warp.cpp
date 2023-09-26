@@ -3,7 +3,10 @@
 #include "GameFramework/Character.h"
 #include "Components/CStatusComponent.h"
 #include "Components/CStateComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "CAttachment.h"
+#include "AIController.h"
+#include "Actions/CBehaviorComponent.h"
 
 void ACDoAction_Warp::BeginPlay()
 {
@@ -23,6 +26,7 @@ void ACDoAction_Warp::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	CheckFalse(IsPlayerControlled());
 	CheckFalse(*bEquippedThis);
 
 	FVector location;
@@ -45,8 +49,28 @@ void ACDoAction_Warp::DoAction()
 
 	CheckFalse(StateComp->IsIdleMode());
 
-	FRotator temp;
-	CheckFalse(GetCursorLocationAndRotation(WarpLocation, temp));
+	// Player
+	if (IsPlayerControlled())
+	{
+		FRotator temp;
+		CheckFalse(GetCursorLocationAndRotation(WarpLocation, temp));
+	}
+	// else
+	else
+	{
+		AAIController* controller = OwnerCharacter->GetController<AAIController>();
+		if (!!controller)
+		{
+			UCBehaviorComponent * behaviorComp = CHelpers::GetComponent<UCBehaviorComponent>(controller);
+			if (!!behaviorComp)
+			{
+				WarpLocation = behaviorComp->GetLocationKey();
+			}
+		}
+
+	}
+
+	WarpLocation.Z += OwnerCharacter->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
 
 	StateComp->SetActionMode();
 	Datas[0].bCanMove ? StatusComp->SetMove() : StatusComp->SetStop();
@@ -110,4 +134,9 @@ bool ACDoAction_Warp::GetCursorLocationAndRotation(FVector& OutLocation, FRotato
 	}
 
 	return false;
+}
+
+bool ACDoAction_Warp::IsPlayerControlled()
+{
+	return (OwnerCharacter->GetController()->GetClass() == APlayerController::StaticClass());
 }

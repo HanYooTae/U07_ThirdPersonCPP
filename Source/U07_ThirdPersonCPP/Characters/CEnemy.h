@@ -34,6 +34,10 @@ private:
 	UFUNCTION()
 		void OnStateTypeChanged(EStateType InPrevType, EStateType InNewType);
 
+
+	UFUNCTION()
+		void End_Dead();
+
 private:		// Scene Component
 	UPROPERTY(VisibleDefaultsOnly)
 		class UWidgetComponent* NameWidget;
@@ -60,6 +64,9 @@ private:		// Actor Component
 private:
 	UPROPERTY(EditAnywhere)
 		float LaunchValue = 25.f;
+
+	UPROPERTY(EditAnywhere)
+		bool bVisibleNameWidget;
 
 private:
 	class UMaterialInstanceDynamic* UpperMaterial;		// »ó¹Ý½Å
