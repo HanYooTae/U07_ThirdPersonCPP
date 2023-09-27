@@ -45,6 +45,17 @@ void UCBTService_Magic::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 		return;
 	}
 
+	// Perceived Player Dead
+	UCStateComponent* playerStateComp = CHelpers::GetComponent<UCStateComponent>(player);
+	if (!!playerStateComp)
+	{
+		if (playerStateComp->IsDeadMode())
+		{
+			behaviorComp->SetWaitMode();
+			return;
+		}
+	}
+
 	// Player exist
 	float distance = enemy->GetDistanceTo(player);
 	controller->SetFocus(player);

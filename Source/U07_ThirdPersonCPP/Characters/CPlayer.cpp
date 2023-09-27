@@ -7,6 +7,7 @@
 #include "Components/CStatusComponent.h"
 #include "Components/CMontagesComponent.h"
 #include "Components/CActionComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Actions/CActionData.h"
 #include "Actions/CEquipment.h"
 
@@ -272,14 +273,29 @@ void ACPlayer::Hitted()
 
 void ACPlayer::Dead()
 {
+	// Do Once
+	CheckFalse(State->IsDeadMode());
+
+	// DisableInput
+	APlayerController* controller = GetController<APlayerController>();
+	if (!!controller)
+	{
+		DisableInput(controller);
+	}
+
 	// Play Dead Montage
 	Montages->PlayDead();
 
 	// Off All Collisions
 	Action->OffAllCollisions();
 
+	// �浹ü Spectator
+	GetCapsuleComponent()->SetCollisionProfileName("Spectator");
+
 	// Destroy All(Attachment, Equipment, DoAction...);
 	UKismetSystemLibrary::K2_SetTimer(this, "End_Dead", 5.f, false);
+
+	
 }
 
 void ACPlayer::End_Dead()
