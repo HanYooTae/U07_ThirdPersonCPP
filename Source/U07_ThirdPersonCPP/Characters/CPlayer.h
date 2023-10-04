@@ -95,8 +95,11 @@ private:	// Actor Component
 		class UCActionComponent* Action;
 
 private:
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "Team")
 		uint8 PlayerTeamID = 0;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Widget")
+		TSubclassOf<class UCPlayerHealthWidget> HealthWidgetClass;
 
 private:
 	class UMaterialInstanceDynamic* BodyMaterial;
@@ -106,4 +109,6 @@ private:
 	class ACharacter* Attacker;
 	class AActor* Causer;
 	float DamageValue;
+
+	class UCPlayerHealthWidget* HealthWidget;
 };
