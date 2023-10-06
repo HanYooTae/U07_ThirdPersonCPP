@@ -3,6 +3,7 @@
 #include "Components/Button.h"
 #include "Characters/CPlayer.h"
 #include "CSelectAcionWidget_Group.h"
+#include "Engine/Texture2D.h"
 
 void UCSelectionActionWidget_Icon::NativeConstruct()
 {
@@ -38,4 +39,12 @@ UCSelectAcionWidget_Group* UCSelectionActionWidget_Icon::GetParentWidget()
 	CheckNullResult(player, nullptr);
 
 	return player->GetSelectActionWidget();
+}
+
+void UCSelectionActionWidget_Icon::SetTextureToImageButton(UTexture2D* InImage)
+{
+	CheckNull(ImageButton);
+	ImageButton->WidgetStyle.Normal.SetResourceObject(InImage);
+	ImageButton->WidgetStyle.Hovered.SetResourceObject(InImage);
+	ImageButton->WidgetStyle.Pressed.SetResourceObject(InImage);
 }

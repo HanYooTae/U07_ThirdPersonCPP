@@ -12,6 +12,7 @@
 #include "Actions/CEquipment.h"
 #include "Widgets/CPlayerHealthWidget.h"
 #include "Widgets/CSelectAcionWidget_Group.h"
+#include "Widgets/CSelectionActionWidget_Icon.h"
 
 
 ACPlayer::ACPlayer()
@@ -83,6 +84,14 @@ void ACPlayer::BeginPlay()
 	CheckNull(SelectionActionWidget);
 	SelectionActionWidget->AddToViewport();
 	SelectionActionWidget->SetVisibility(ESlateVisibility::Hidden);
+
+	// Bind SelectAction Widget Event
+	SelectionActionWidget->GetChildWidget("Icon1")->OnImageButtonPressed.AddDynamic(this, &ACPlayer::OnFist);
+	SelectionActionWidget->GetChildWidget("Icon2")->OnImageButtonPressed.AddDynamic(this, &ACPlayer::OnOneHand);
+	SelectionActionWidget->GetChildWidget("Icon3")->OnImageButtonPressed.AddDynamic(this, &ACPlayer::OnTwoHand);
+	SelectionActionWidget->GetChildWidget("Icon4")->OnImageButtonPressed.AddDynamic(this, &ACPlayer::OnMagicBall);
+	SelectionActionWidget->GetChildWidget("Icon5")->OnImageButtonPressed.AddDynamic(this, &ACPlayer::OnWarp);
+	SelectionActionWidget->GetChildWidget("Icon6")->OnImageButtonPressed.AddDynamic(this, &ACPlayer::OnStorm);
 }
 
 void ACPlayer::Tick(float DeltaTime)

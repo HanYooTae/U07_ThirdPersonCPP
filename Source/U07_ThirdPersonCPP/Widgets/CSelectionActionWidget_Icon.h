@@ -4,6 +4,8 @@
 #include "Blueprint/UserWidget.h"
 #include "CSelectionActionWidget_Icon.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FImageButtonPressedSignature);
+
 UCLASS()
 class U07_THIRDPERSONCPP_API UCSelectionActionWidget_Icon : public UUserWidget
 {
@@ -24,6 +26,13 @@ protected:
 
 private:
 	class UCSelectAcionWidget_Group* GetParentWidget();
+
+public:
+	void SetTextureToImageButton(class UTexture2D* InImage);
+
+public:
+	UPROPERTY(BlueprintAssignable)
+		FImageButtonPressedSignature OnImageButtonPressed;
 
 private:
 	UPROPERTY(meta = (BindWidget))

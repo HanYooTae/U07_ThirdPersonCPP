@@ -37,18 +37,20 @@ private:	// Axis Event
 	void OnHorizontalLook(float InAxis);
 	void OnVerticalLook(float InAxis);
 	void OnZoom(float InAxis);
-	void OnWarp();
-	void OnStorm();
+	
 
 private:	// Action Event
 	void OnWalk();
 	void OffWalk();
 
 	void OnEvade();
-	void OnFist();
-	void OnOneHand();
-	void OnTwoHand();
-	void OnMagicBall();
+
+	UFUNCTION() void OnFist();
+	UFUNCTION() void OnOneHand();
+	UFUNCTION() void OnTwoHand();
+	UFUNCTION() void OnMagicBall();
+	UFUNCTION() void OnWarp();
+	UFUNCTION() void OnStorm();
 
 	void OnAction();
 	void OnAim();
