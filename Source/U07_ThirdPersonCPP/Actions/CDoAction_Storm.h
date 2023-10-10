@@ -21,6 +21,17 @@ public:
 	virtual void End_DoAction() override;
 	virtual void Abort() override;
 
+public:
+	virtual void OnBeginOverlap(class ACharacter* InAttacker, class AActor* InCauser, class ACharacter* InOtherCharacter) override;
+	virtual void OnEndOverlap(class ACharacter* InAttacker, class AActor* InCauser, class ACharacter* InOtherCharacter) override;
+
+private:
+	UFUNCTION()
+		void TickDamage();
+
+	UFUNCTION()
+		void Finish();
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 		float DamagePerTime = 0.1f;
@@ -39,4 +50,9 @@ private:
 
 private:
 	class UBoxComponent* Box;
+
+	TArray<class ACharacter*> HittedCharacters;
+
+	float CurrentYaw;
+	bool bActivating;
 };

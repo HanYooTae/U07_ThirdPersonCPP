@@ -205,7 +205,7 @@ void ACPlayer::OnStorm()
 	CheckFalse(State->IsIdleMode());
 
 	CLog::Print("Storm");
-	//Action->SetStormMode();
+	Action->SetStormMode();
 }
 
 void ACPlayer::OnWalk()
